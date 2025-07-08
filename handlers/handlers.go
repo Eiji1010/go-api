@@ -2,8 +2,10 @@ package handlers
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"io"
 	"net/http"
+	"strconv"
 )
 
 func HelloHandler(w http.ResponseWriter, req *http.Request) {
@@ -19,7 +21,11 @@ func ArticleListHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func ArticleDecimalHandler(w http.ResponseWriter, req *http.Request) {
-	articleId := 1
+	articleId, err := strconv.Atoi(mux.Vars(req)["id"])
+	if err != nil {
+		http.Error(w, "Invalid query parameter", http.StatusBadRequest)
+		return
+	}
 	resString := fmt.Sprintf("Article No.%d\n", articleId)
 	io.WriteString(w, resString)
 }
