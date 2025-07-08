@@ -7,52 +7,27 @@ import (
 )
 
 func HelloHandler(w http.ResponseWriter, req *http.Request) {
-	if req.Method == http.MethodGet {
-		io.WriteString(w, "Hello, world!\n")
-	} else {
-		http.Error(w, "Invalid method", http.StatusMethodNotAllowed) // status code 405
-	}
+	io.WriteString(w, "Hello, world!\n")
 }
 
 func PostArticleHandler(w http.ResponseWriter, req *http.Request) {
-	if req.Method == http.MethodPost {
-		io.WriteString(w, "Posting Article...\n")
-	} else {
-		http.Error(w, "Invalid method", http.StatusMethodNotAllowed) // status code 405
-	}
+	io.WriteString(w, "Posting Article...\n")
 }
 
 func ArticleListHandler(w http.ResponseWriter, req *http.Request) {
-	if req.Method == http.MethodGet {
-		io.WriteString(w, "Article List\n")
-	} else {
-		http.Error(w, "Invalid method", http.StatusMethodNotAllowed) // status code 405
-	}
+	io.WriteString(w, "Article List\n")
 }
 
 func ArticleDecimalHandler(w http.ResponseWriter, req *http.Request) {
-	if req.Method == http.MethodGet {
-		articleId := 1
-		resString := fmt.Sprintf("Article No.%d\n", articleId)
-		io.WriteString(w, resString)
-	} else {
-		http.Error(w, "Invalid method", http.StatusMethodNotAllowed) // status code 405
-	}
-
+	articleId := 1
+	resString := fmt.Sprintf("Article No.%d\n", articleId)
+	io.WriteString(w, resString)
 }
 
 func PostNiceHandler(w http.ResponseWriter, req *http.Request) {
-	if req.Method == http.MethodPost {
-		io.WriteString(w, "Posting Nice...\n")
-	} else {
-		http.Error(w, "Invalid method", http.StatusMethodNotAllowed)
-	}
+	io.WriteString(w, "Posting Nice...\n")
 }
 
 func PostCommentHandler(w http.ResponseWriter, req *http.Request) {
-	if req.Method == http.MethodPost {
-		io.WriteString(w, "Posting Comment...\n")
-	} else {
-		http.Error(w, "Invalid method", http.StatusMethodNotAllowed)
-	}
+	io.WriteString(w, "Posting Comment...\n")
 }
