@@ -18,3 +18,11 @@ type Article struct {
 	CommentList []Comment `json:"comments"`
 	CreatedAt   time.Time `json:"created_at"`
 }
+
+type Nice struct {
+	NiceId    int       `json:"nice_id"`
+	Title     string    `json:"title"`
+	Contents  string    `json:"contents"`
+	UserName  string    `json:"user_name"`
+	CreatedAt time.Time `json:"created_at"`
+}
