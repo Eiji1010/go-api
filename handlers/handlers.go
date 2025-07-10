@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/Eiji1010/go-api/models"
 	"github.com/gorilla/mux"
@@ -16,32 +15,20 @@ func HelloHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func PostArticleHandler(w http.ResponseWriter, req *http.Request) {
-	length, err := strconv.Atoi(req.Header.Get("Content-Length"))
-	if err != nil {
-		http.Error(w, "cannot get content length\n", http.StatusBadRequest)
-		return
-	}
-	reqBodybuffer := make([]byte, length)
 
-	if _, err := req.Body.Read(reqBodybuffer); !errors.Is(err, io.EOF) {
-		http.Error(w, "Fail to get response body\n", http.StatusBadRequest)
-		return
-	}
 	var reqArticle models.Article
-	if err := json.Unmarshal(reqBodybuffer, &reqArticle); err != nil {
-		http.Error(w, "fail to get request body\n", http.StatusBadRequest)
-		return
-	}
 
-	defer req.Body.Close()
+	if err := json.NewDecoder(req.Body).Decode(&reqArticle); err != nil {
+		http.Error(w, "fail to decode json\n", http.StatusBadRequest)
+	}
 
 	article := reqArticle
-	jsonData, err := json.Marshal(article)
+
+	err := json.NewEncoder(w).Encode(article)
 	if err != nil {
 		http.Error(w, "fail to encode json\n", http.StatusInternalServerError)
 		return
 	}
-	w.Write(jsonData)
 }
 
 func ArticleListHandler(w http.ResponseWriter, req *http.Request) {
